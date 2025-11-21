@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>맞춤 디그니티 후드 투피스 - 컬러 시뮬레이션</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f5;
+    }
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+    .layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .viewer {
+      flex: 1 1 500px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 420px;
+    }
+    .viewer object {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      border: none;
+    }
+    .controls {
+      flex: 0 0 300px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      padding: 16px 16px 12px;
+      font-size: 13px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .group {
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+    }
+    .group:last-child {
+      border-bottom: none;
+    }
+    .group-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .color-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .color-btn {
+      min-width: 90px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid #ccc;
+      background: #fff;
+      font-size: 11px;
+      cursor: pointer;
+      padding: 0 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: .1s;
+    }
+    .color-btn:hover {
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      transform: translateY(-1px);
+    }
+    .color-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      margin-right: 6px;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+    .footer {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #999;
+      text-align: right;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        flex-direction: column;
+      }
+      .viewer {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>맞춤 디그니티 후드 투피스 - 컬러 시뮬레이션 (13부위 / 4색)</h1>
+    <div class="subtitle">후드, 상의, 팔, 하의 전면/후면/사이드까지 13부위를 블랙 / 진그레이 / 메탈 / 연블루로 테스트</div>
+
+    <div class="layout">
+      <!-- 도식화 SVG -->
+      <div class="viewer">
+        <object id="wetsuitSvg" type="image/svg+xml" data="wetsuit.svg"></object>
+      </div>
+
+      <!-- 색상 컨트롤 -->
+      <div class="controls">
+
+        <div class="group">
+          <div class="group-title">후드</div>
+          <div class="color-row" id="hood"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">상의 메인</div>
+          <div class="color-row" id="topMain"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">상의 서브</div>
+          <div class="color-row" id="topSub"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">오른팔</div>
+          <div class="color-row" id="rightArm"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">왼팔</div>
+          <div class="color-row" id="leftArm"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">팔 완장</div>
+          <div class="color-row" id="armBand"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">상·하 연결 부분</div>
+          <div class="color-row" id="connector"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">하의 정면 (상)</div>
+          <div class="color-row" id="bottomFrontTop"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">하의 정면 (하)</div>
+          <div class="color-row" id="bottomFrontBottom"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">하의 후면 (상)</div>
+          <div class="color-row" id="bottomBackTop"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">하의 후면 (하)</div>
+          <div class="color-row" id="bottomBackBottom"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">하의 안쪽 사이드</div>
+          <div class="color-row" id="bottomInnerSide"></div>
+        </div>
+
+        <div class="group">
+          <div class="group-title">하의 바깥쪽 사이드</div>
+          <div class="color-row" id="bottomOuterSide"></div>
+        </div>
+
+        <div class="footer">© Custom Dignity Hood Two-piece Color Simulator</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 4가지 색상
+    const COLORS = [
+      { name: "블랙",    code: "#000000" },
+      { name: "진그레이", code: "#333333" },
+      { name: "메탈",    code: "#8e8e8e" },
+      { name: "연블루",   code: "#87a6d8" }
+    ];
+
+    // 현재 컬러 도식화의 클래스와 부위 매핑
+    const PARTS = {
+      hood:            ".cls-5",   // 후드 = 노랑
+      topMain:         ".cls-11",  // 상의 메인 = 파랑
+      topSub:          ".cls-1",   // 상의 서브 = 주황
+      rightArm:        ".cls-7",   // 오른팔 = 빨강
+      leftArm:         ".cls-9",   // 왼팔 = 초록
+      armBand:         ".cls-12",  // 완장 = 핑크
+      connector:       ".cls-8",   // 상하 연결 = 보라
+      bottomFrontTop:  ".cls-14",  // 하의 정면(상) = 연하늘
+      bottomFrontBottom: ".cls-16",// 하의 정면(하) = 연보라
+      bottomBackTop:   ".cls-3",   // 하의 후면(상) = 연두
+      bottomBackBottom: ".cls-15", // 하의 후면(하) = 브라운
+      bottomInnerSide: ".cls-13",  // 하의 안쪽 사이드 = 민트
+      bottomOuterSide: ".cls-10"   // 하의 바깥쪽 사이드 = 네이비
+    };
+
+    // 버튼 자동 생성
+    function makeButtons(partId) {
+      const wrap = document.getElementById(partId);
+      COLORS.forEach(c => {
+        const btn = document.createElement("button");
+        btn.className = "color-btn";
+        btn.dataset.target = partId;
+        btn.dataset.color = c.code;
+        btn.innerHTML =
+          `<span class="color-swatch" style="background:${c.code}"></span>${c.name}`;
+        wrap.appendChild(btn);
+      });
+    }
+
+    Object.keys(PARTS).forEach(id => makeButtons(id));
+
+    // SVG 문서 얻기
+    function getSvgDoc() {
+      const obj = document.getElementById("wetsuitSvg");
+      if (!obj) return null;
+      if (obj.contentDocument) return obj.contentDocument;
+      if (obj.getSVGDocument) return obj.getSVGDocument();
+      return null;
+    }
+
+    function initSvgInteraction() {
+      const svgDoc = getSvgDoc();
+      if (!svgDoc) {
+        console.warn("SVG 문서를 아직 못 찾았어요.");
+        return;
+      }
+
+      const buttons = document.querySelectorAll(".color-btn");
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const part   = btn.dataset.target;
+          const color  = btn.dataset.color;
+          const selector = PARTS[part];
+          const nodes  = svgDoc.querySelectorAll(selector);
+
+          // CSS fill보다 우선순위 높은 style.fill 사용
+          nodes.forEach(el => {
+            el.style.fill = color;
+          });
+        });
+      });
+    }
+
+    // 페이지/ SVG 로드 후 모두 대비
+    window.addEventListener("load", () => {
+      const obj = document.getElementById("wetsuitSvg");
+
+      // 이미 로드됐을 수도 있으니 한 번 시도
+      initSvgInteraction();
+
+      // 아직이면 load 이벤트 때 다시 시도
+      if (obj) {
+        obj.addEventListener("load", initSvgInteraction);
+      }
+    });
+  </script>
+</body>
+</html>
+<object id="wetsuitSvg" type="image/svg+xml" data="wetsuit.svg"></object>
